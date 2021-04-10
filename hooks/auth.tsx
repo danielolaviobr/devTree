@@ -54,11 +54,11 @@ function useProvideAuth(): AuthContextData {
         user: userWithoutToken,
       });
       setUser(formattedUser);
-      Cookies.set("linktree-auth", "true", { expires: 1 });
+      Cookies.set("devtree-auth", "true", { expires: 1 });
 
       return formattedUser;
     } else {
-      Cookies.remove("linktree-auth");
+      Cookies.remove("devtree-auth");
       setUser(undefined);
       return undefined;
     }

@@ -35,11 +35,11 @@ export default function Page() {
   return (
     <>
       <Head>
-        <title>Quick Feedback</title>
+        <title>DevTree - Link sharing for developers</title>
         <script
           dangerouslySetInnerHTML={{
             __html: `
-                if (document.cookie && document.cookie.includes('linktree-auth')) {
+                if (document.cookie && document.cookie.includes('devtree-auth')) {
                 window.location.href = "/dashboard"
                 }`,
           }}
