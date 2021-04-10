@@ -37,7 +37,6 @@ export default function Page() {
   return (
     <>
       <Head>
-        <title>DevTree - Link sharing for developers</title>
         <script
           dangerouslySetInnerHTML={{
             __html: `
