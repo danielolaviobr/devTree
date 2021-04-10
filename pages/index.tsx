@@ -9,6 +9,7 @@ import {
   GridItem,
   Grid,
   useBoolean,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { Site } from "@dtos/site";
 import Head from "next/head";
@@ -22,6 +23,7 @@ import { useRouter } from "next/router";
 import { FaGithub, FaGithubAlt } from "react-icons/fa";
 
 export default function Page() {
+  const [isLargerThan992] = useMediaQuery("(min-width: 992px)");
   const { signInWithGitHub } = useAuth();
   const { push } = useRouter();
   const [flag, setFlag] = useBoolean();
@@ -45,7 +47,9 @@ export default function Page() {
           }}
         />
       </Head>
-      <Grid templateColumns="repeat(3, 1fr)" h="100vh">
+      <Grid
+        templateColumns={{ base: "repeat(1, 1fr)", lg: "repeat(3, 1fr)" }}
+        h="100vh">
         <GridItem
           display="flex"
           flexDirection="column"
@@ -61,18 +65,20 @@ export default function Page() {
             Join with GitHub
           </Button>
         </GridItem>
-        <GridItem
-          bg="green.500"
-          colSpan={2}
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center">
-          <FaGithubAlt size={128} color="#EDF2F7" />
-          <Heading size="3xl" color="bg" letterSpacing={-2}>
-            DevTree
-          </Heading>
-        </GridItem>
+        {isLargerThan992 && (
+          <GridItem
+            bg="green.500"
+            colSpan={2}
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center">
+            <FaGithubAlt size={128} color="#EDF2F7" />
+            <Heading size="3xl" color="bg" letterSpacing={-2}>
+              DevTree
+            </Heading>
+          </GridItem>
+        )}
       </Grid>
     </>
   );
