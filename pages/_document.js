@@ -10,7 +10,6 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
           <link rel="icon" href="/favicon.ico" />
-          <title>DevTree - Link sharing for developers</title>
         </Head>
         <body>
           <Main />

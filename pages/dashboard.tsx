@@ -29,7 +29,8 @@ export default function Page() {
   const { user } = useAuth();
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const { data } = useSWR<{ sites: Site[] }>(
-    [`api/sites/${user?.uid}`, user?.token],
+    () =>
+      user.uid && user.token ? [`api/sites/${user.uid}`, user.token] : null,
     fetcher
   );
 
@@ -56,7 +57,6 @@ export default function Page() {
                   <Td>{site.name}</Td>
                   {isLargerThan768 && (
                     <>
-                      {" "}
                       <Td>
                         <a href={site.url}>{site.url}</a>
                       </Td>
@@ -88,34 +88,44 @@ export default function Page() {
     );
   }
 
-  if (!data) {
-    return (
-      <LoadingContainer>
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>Name</Th>
-              {isLargerThan768 && <Th>Url</Th>}
-              <Th isNumeric>Nº of accesses</Th>
+  return (
+    <LoadingContainer>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th>Name</Th>
+            {isLargerThan768 && (
+              <>
+                <Th>Url</Th>
+                <Th isNumeric>Nº of accesses</Th>
+              </>
+            )}
+            <Th />
+          </Tr>
+        </Thead>
+        <Tbody>
+          {new Array(8).fill(0).map((_, i) => (
+            <Tr key={i}>
+              <Td>
+                <Skeleton h={6} />
+              </Td>
+              {isLargerThan768 && (
+                <>
+                  <Td>
+                    <Skeleton h={6} key={i} />
+                  </Td>
+                  <Td>
+                    <Skeleton h={6} key={i} />
+                  </Td>
+                </>
+              )}
+              <Td>
+                <Skeleton h={6} key={i} />
+              </Td>
             </Tr>
-          </Thead>
-          <Tbody>
-            {new Array(8).fill(0).map(() => (
-              <Tr>
-                <Td>
-                  <Skeleton h={6} />
-                </Td>
-                <Td>
-                  <Skeleton h={6} />
-                </Td>
-                <Td>
-                  <Skeleton h={6} />
-                </Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </LoadingContainer>
-    );
-  }
+          ))}
+        </Tbody>
+      </Table>
+    </LoadingContainer>
+  );
 }

@@ -1,10 +1,19 @@
 import React from "react";
-import { Flex, Box, Avatar, Stack, Button, Heading } from "@chakra-ui/react";
+import {
+  Flex,
+  Box,
+  Avatar,
+  Stack,
+  Button,
+  Heading,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import AddSiteModal from "./AddSiteModal";
 import ShareModal from "./ShareModal";
 import { FaGithubAlt } from "react-icons/fa";
 
 const LoadingContainer: React.FC = ({ children }) => {
+  const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   return (
     <Flex justifyContent="center" flexDirection="column">
       <Box
@@ -46,8 +55,12 @@ const LoadingContainer: React.FC = ({ children }) => {
           align="center"
           justify="space-between"
           width="100%">
-          <Heading>Welcome, </Heading>
-          <Stack isInline spacing={4} align="center">
+          {isLargerThan768 && <Heading>Welcome, </Heading>}
+          <Stack
+            isInline
+            spacing={4}
+            align="center"
+            ml={{ base: "auto", md: 0 }}>
             <AddSiteModal />
             <ShareModal />
           </Stack>

@@ -10,6 +10,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  useBoolean,
   useDisclosure,
 } from "@chakra-ui/react";
 import { Site } from "@dtos/site";
@@ -29,9 +30,11 @@ const AddSiteModal = () => {
   const { register, handleSubmit } = useForm<AddSiteFormProps>();
   const initialRef = useRef<HTMLInputElement | null>(null);
   const { user } = useAuth();
+  const [flag, setFlag] = useBoolean();
 
   const handleCreateSite = async ({ name, url }) => {
     try {
+      setFlag.toggle;
       const response = await api.post(
         "sites/create",
         { name, url },
@@ -56,7 +59,6 @@ const AddSiteModal = () => {
       <Button onClick={onOpen} colorScheme="green" my={4}>
         Add site +
       </Button>
-
       <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent
@@ -89,7 +91,7 @@ const AddSiteModal = () => {
             </FormControl>
           </ModalBody>
           <ModalFooter>
-            <Button mr={3} colorScheme="green" type="submit">
+            <Button mr={3} colorScheme="green" type="submit" isLoading={flag}>
               Save
             </Button>
             <Button onClick={onClose}>Cancel</Button>

@@ -10,6 +10,7 @@ import {
   Stack,
   Text,
   Button,
+  Skeleton,
 } from "@chakra-ui/react";
 import fetcher from "@utils/fetcher";
 import api from "@utils/api";
@@ -38,7 +39,7 @@ export default function UserSites() {
   if (data) {
     const { user, sites } = data;
     return (
-      <Flex align="center" direction="column" h="100%" minH="100vh" m={8}>
+      <Flex align="center" direction="column" h="100%" m={8}>
         <Box
           bg="white"
           maxW="480px"
@@ -69,5 +70,26 @@ export default function UserSites() {
     );
   }
 
-  return <div>loading</div>;
+  return (
+    <Flex align="center" direction="column" h="100%" m={8}>
+      <Box
+        bg="white"
+        maxW="480px"
+        w="100%"
+        borderRadius="md"
+        pb={8}
+        px={4}
+        boxShadow="md">
+        <Flex align="center" direction="column" h="100%" my={8}>
+          <Avatar size="xl" mb={4} />
+          <Skeleton h={8} w={48} />
+        </Flex>
+        <Stack spacing={4} align="center" maxW="100vw" w="100%">
+          {new Array(6).fill(0).map((_, i) => (
+            <Skeleton h={8} w="100%" key={i} />
+          ))}
+        </Stack>
+      </Box>
+    </Flex>
+  );
 }

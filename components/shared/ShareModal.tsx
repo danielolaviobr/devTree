@@ -51,6 +51,7 @@ export default function ShareModal() {
                 url={userLink}
                 title="Hey, checkout my DevTree page!">
                 <Button
+                  as="div"
                   w="100%"
                   colorScheme="whatsapp"
                   leftIcon={<FaWhatsapp size={24} />}
@@ -62,6 +63,7 @@ export default function ShareModal() {
                 url={userLink}
                 hashtags={["devTree", "devLife"]}>
                 <Button
+                  as="div"
                   w="100%"
                   colorScheme="twitter"
                   leftIcon={<FaTwitter size={24} />}
