@@ -37,7 +37,7 @@ const AddSiteModal = () => {
       setFlag.toggle;
       const response = await api.post(
         "sites/create",
-        { name, url },
+        { name, url, id: user.uid },
         { headers: { token: user.token }, withCredentials: true }
       );
       const { site } = response.data;

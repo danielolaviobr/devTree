@@ -6,12 +6,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { token } = req.headers as { [key: string]: string };
     await auth.verifyIdToken(token);
-    const { name, url } = req.body;
+    const { name, url, id } = req.body;
     const site = await prisma.site.create({
       data: {
         name,
         url,
-        user: { connect: { email: "danielolaviobr@gmail.com" } },
+        user: { connect: { id } },
       },
     });
     return res.status(200).json({ site });

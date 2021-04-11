@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { User } from "@prisma/client";
+import { Site, User } from "@prisma/client";
 import prisma from "@utils/prisma";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -15,11 +15,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     let userData: User;
 
-    const sitesWithoutUserId = sites.map((site) => {
-      const { user, userId, ...siteWithoutUserId } = site;
-      userData = user;
-      return siteWithoutUserId;
-    });
+    let sitesWithoutUserId: Omit<Site, "user" | "userId">[] = [];
+
+    if (sites.length > 0) {
+      sitesWithoutUserId = sites.map((site) => {
+        const { user, userId, ...siteWithoutUserId } = site;
+        userData = user;
+        return siteWithoutUserId;
+      });
+    } else {
+      userData = await prisma.user.findFirst({ where: { id: userId } });
+    }
 
     const { name, avatar } = userData;
 

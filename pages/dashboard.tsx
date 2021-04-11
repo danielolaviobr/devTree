@@ -78,10 +78,9 @@ export default function Page() {
   if (data && data.sites.length === 0) {
     return (
       <>
-        <Container>
-          <AddSiteModal />
-          <Flex direction="column">
-            <span>No sites added</span>
+        <Container name={user?.name}>
+          <Flex direction="column" align="center" justify="center" flex="1">
+            <Heading>Try adding your first site 💻</Heading>
           </Flex>
         </Container>
       </>
