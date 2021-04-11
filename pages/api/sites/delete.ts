@@ -7,7 +7,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const { token } = req.headers as { [key: string]: string };
     await auth.verifyIdToken(token);
     const { siteId } = req.body;
-    console.log(siteId);
     const site = await prisma.site.delete({ where: { id: siteId } });
 
     return res.status(200).json({ site });
